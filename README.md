@@ -27,3 +27,8 @@
 - transformacja i wyczyszczenie
 - refaktoring kodu
 - parametryzacja
+# Etap 5 (Pandas, Matplotlib)
+-wczytanie opinii do ramki danych
+-policzenie podstawowych statystyk
+-narysowanie wykresów funkcji
+# Etap 6 - interfejs webowy dla scrapera (FLASK)
