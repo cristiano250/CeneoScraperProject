@@ -11,7 +11,7 @@
 |lista wad               |div.cons-cell > ul                                |cons           |
 |lista zalet             |div.pros-cell > ul                                |pros           |
 |przydatna               |button.vote-yes>span                              |useful         |
-|nieprzydatna            |button.vote-np >span                              |useless        |
+|nieprzydatna            |button.vote-no >span                              |useless        |
 |data wystawienia opinii |span.review-time > time:first-child['datetime']   |opinion_date   |
 |data zakupu             |span.review-time > time:nth-child(2)['datetime']  |purchase_date  |
 ## etap2 - pobranie składowych pojedynczej opinii
@@ -23,8 +23,7 @@
 - zapisanie do złożonej struktury danych wszystkich opinii z pojedynczej strony
 - przechodzenie po kolejnych stronach z opiniami
 - zapis wsyzstkich opionii o pojedynczym produkcie w pliku
-
 # Etap 4
 - transformacja i wyczyszczenie
-- refaktoring
+- refaktoring kodu
 - parametryzacja
