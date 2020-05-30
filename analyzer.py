@@ -35,7 +35,7 @@ plt.ylabel("Liczba opinii")
 plt.xticks(rotation=0)
 #ax.axvline(average_score, color='blue',linewidth=2)
 #plt.show()
-plt.savefig('figures_png/'+product_id+"_bar.png")
+plt.savefig('app/static/figures_png/'+product_id+"_bar.png")
 plt.close()
 
 #UDZIAŁ POSZCZEGÓLNYCH REKOMENDACJI W OGÓLNEJ LICZBIE OPINII
@@ -44,11 +44,10 @@ fig, ax= plt.subplots()
 recoommendation.plot.pie(label="",autopct="%1.1f%%", colors=['#00FF00','red'])
 plt.title("Rekomendacja")
 #plt.show()
-plt.savefig('figures_png/'+product_id+"_pie.png")
+plt.savefig('app/static/figures_png/'+product_id+"_pie.png")
 plt.close()
 
 #print(opinions.purchase_date==None)
-opinions['purchased'] = opinions['purchase']= opinions['purchase_date']!=None
-print(opinions['purchased'])
-stars_purchased=pd.crosstab(opinions['stars'], opinions['purchased'])
+opinions['purchased']  =opinions['purchase_date'].apply(lambda x: False if x==None else True)
+stars_purchased= pd.crosstab(opinions['stars'], opinions['purchased'])
 print(stars_purchased)

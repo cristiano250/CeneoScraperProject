@@ -8,24 +8,26 @@ import json
 def extract_feature(opinion, selector,attribute=None):
     try:
         if attribute:
-            return opinion.select(selector).pop()[attribute].strip()
+            return opinion.select(selector).pop(0)[attribute].strip()
         else:
-            return opinion.select(selector).pop().text.strip()
+            return opinion.select(selector).pop(0).text.strip()
     except IndexError:
         return None
 
+
+
 #słownik z atrybutami opinii i ich selektrorami
 selectors={
-        "author":["div.reviewer-name-line"],
-        "recommendation":["div.product-review-summary > em"],
-        "stars":["span.review-score-count"],
-        "content":["p.product-review-body"],
-        "cons":["div.cons-cell > ul"],
-        "pros":["div.pros-cell > ul"],
+        "author":["span.user-post__author-name"],
+        "recommendation":["span.user-post__author-recomendation > em"],
+        "stars":["span.user-post__score-count"],
+        "content":["div.user-post__text"],
+        "cons":["div.review-feature__col:has(>div.review-feature__title--negatives)"],
+        "pros":["div.review-feature__col:has(>div.review-feature__title--positives)"],
         "useful":["button.vote-yes>span"],
         "useless":["button.vote-no >span "],
-        "opinion_date":["span.review-time > time:nth-child(1)",'datetime'],
-        "purchase_date":["span.review-time > time:nth-child(2)",'datetime'],
+        "opinion_date":["span.user-post__published>time:nth-child(1)", "datetime"],
+        "purchase_date":["span.user-post__published>time:nth-child(2)", "datetime"]
         }
 
 #adres url pierwszej strony z opiniami o produkcie
@@ -47,7 +49,7 @@ while url:
     
     #wydobycie z kodu strony fragmentów odpowiadających opiniom konsumentów
     # select zawsze zwróci listę
-    opinions=page_dom.select("li.js_product-review")
+    opinions=page_dom.select("div.js_product-review")
 
 
     #dla wszystkich opinii z danej strony wydobycie ich składowych
@@ -60,11 +62,11 @@ while url:
         features["stars"]=float(features["stars"].split('/')[0].replace(',','.'))
         features['content']=features['content'].replace('\n',' ').replace('\r',' ')
         try:
-            features['cons']=features['cons'].replace('\n',' ').replace('\r',', ')
+            features['cons']=features['cons'].replace('\n',', ').replace('\r',', ').replace("Wady, ", "")
         except AttributeError:
             pass
         try:
-            features['pros']=features['pros'].replace('\n',' ').replace('\r',', ')
+            features['pros']=features['pros'].replace('\n',', ').replace('\r',', ').replace("Zalety, ", "")
         except AttributeError:
             pass
         all_opinions.append(features)
