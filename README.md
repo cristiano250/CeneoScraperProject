@@ -39,12 +39,16 @@
 >>>             /__init__.py
 >>>             /views.py
 >>>             /models.py
+>>>             /forms.py
+>>>             /scraper.py
+>>>             /analizer.py
 >>>             /static/
 >>>>                /main.css
 >>>>                /figures_png
 >>>             /templates/
 >>>>                /layout.html
 >>>>                /extract.html
+>>>>                /about.html
                 /opinions_json
->>>             /requirements.txt
->>>             /.venv
+>>>         /requirements.txt
+>>>         /.venv
